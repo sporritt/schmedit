@@ -3,15 +3,23 @@
 
 <head>
     <style>
+        body * {
+            font-family:"Georgia";
+        }
         .schmeditable {
-            outline:1px solid blue;
+            cursor:pointer;
+        }
+        .schmeditable:hover {
+            background-color:beige;
         }
         .schmediting {
-            outline:1px solid red;
+            outline:1px solid gray;
+            padding:4px;
+            font-size:17px;
         }
 
         .foo {
-            background-color:beige;
+
         }
 
         .bar {
@@ -26,8 +34,8 @@
         </ul>
 
         <div id="content">
-            i am a div. i have several <span>editable spans</span> inside of me. you should be
-            able to <span>see them because they</span> have had a class assigned.
+            i am a div. i have several <span>editable spans</span> inside of me. you <span>should be</span>
+            able to <span>see them when you hover</span> because they have had a class assigned.
         </div>
 
 
