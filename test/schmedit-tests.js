@@ -82,4 +82,65 @@
         ok(s.getAttribute("contenteditable") == null, "contenteditable unset");
     });
 
+    test("simple span edit, element arg call, trigger edit", function() {
+        var d = document.createElement("div");
+        document.body.appendChild(d);
+        var s = document.createElement("span");
+        s.innerHTML = "FOO";
+        d.appendChild(s);
+
+        var commitVal = null;
+        var schmeditor = Schmedit(s, {
+            editableClass:"foo",
+            editingClass:"bar",
+            onCommit:function(el, val) {
+                commitVal = val;
+            },
+            onEdit:function(el, val){
+                return false;
+            }
+        });
+
+        // check the span is setup correctly
+        equal(s.className, " schmeditable foo", "class name assigned");
+
+        var m = new Mottle();
+
+        // now fake a click on it. it should not go into editable mode because the interceptor will prevent it.
+        m.trigger(s, "click");
+        equal(s.className, " schmeditable foo", "class name not assigned");
+
+    });
+
+    test("span edit, commit on blur", function() {
+        var d = document.createElement("div");
+        document.body.appendChild(d);
+        var s = document.createElement("span");
+        s.innerHTML = "FOO";
+        d.appendChild(s);
+
+        var commitVal = null;
+        Schmedit(s, {
+            onCommit:function(el, val) {
+                commitVal = val;
+            },
+            commitOnBlur:true
+        });
+
+        // check the span is setup correctly
+        equal(s.className, " schmeditable", "class name assigned");
+
+        var m = new Mottle();
+
+        m.trigger(s, "click");
+        equal(s.className, " schmeditable schmediting", "class name assigned");
+        ok(s.getAttribute("contenteditable") != null, "contenteditable set");
+        // change its inner html
+        s.innerHTML = "changed";
+        // click away, it should commit
+        m.trigger(document, "click");
+        equal(s.innerHTML, "changed", "changed value committed on blur");
+
+    });
+
 })();
