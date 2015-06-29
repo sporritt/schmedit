@@ -48,8 +48,9 @@
                     options.onCommit(_current, _current.innerHTML);
                 }
                 else {
-                _current.innerHTML = _current._schmeditValue;
+                    _current.innerHTML = _current._schmeditValue;
                 }
+                _current.blur();
             };
             var _maybeCancel = function(e) {
                 if (_editing && (e.target.className == null || e.target.className.indexOf("schmediting") == -1 || e.type === "blur"))
