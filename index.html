@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <style>
+        .schmeditable {
+            outline:1px solid blue;
+        }
+        .schmediting {
+            outline:1px solid red;
+        }
+
+        .foo {
+            background-color:beige;
+        }
+
+        .bar {
+            background-color:wheat;
+        }
+    </style>
+</head>
+
+    <body>
+        <ul>
+            <li><a href="test/qunit.html">Tests</a></li>
+        </ul>
+
+        <div id="content">
+            i am a div. i have several <span>editable spans</span> inside of me. you should be
+            able to <span>see them because they</span> have had a class assigned.
+        </div>
+
+
+        <script src="lib/mottle-0.6.js"></script>
+        <script src="src/schmedit.js"></script>
+
+        <script>
+            ;(function() {
+
+                Schmedit(document.getElementById("content"), "span", {
+                    editableClass:"foo",
+                    editingClass:"bar",
+                    onCommit:function() {
+
+                    }
+                })
+
+            })();
+        </script>
+
+    </body>
+
+</html>
